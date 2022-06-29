@@ -3,26 +3,25 @@ export default class Login extends Component {
   render() {
     return (
       <form>
-        <h3>Sign In</h3>
+        <h3>Iniciar Sesión</h3>
         <div className="mb-3">
-          <label>Email address</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            placeholder="Enter email"
+            placeholder="Username"
           />
         </div>
         <div className="mb-3">
-          <label>Password</label>
           <input
             type="password"
             className="form-control"
-            placeholder="Enter password"
+            placeholder="Password"
+            id='password'
           />
         </div>
         <div className="d-grid">
           <button type="submit" className="btn btn-primary">
-            Submit
+            Iniciar Sesión
           </button>
         </div>
       </form>

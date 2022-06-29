@@ -4,31 +4,43 @@ import axios from "axios";
 
 export default function SignUp() {
   // render() {
-  const url = 'localhost:3001/api_v1/user/';
+  const url = 'http://localhost:3001/api_v1/user/';
+
 
   const [data, setData] = useState([]);
 
   const SignUp = async () => {
+    var headers = { 'Access-Control-Allow-Origin': '*' }
 
     let user = document.getElementById('username').value;
     let psw = document.getElementById('password').value;
+    // alert(url)
+    const users = {
+      username: user,
+      password: psw,
+    };
 
-    // const users = {
-    //   username: user,
-    //   password: psw,
-    // };
-
-    // console.log()
-
-    await axios.post(`${url}add_user?username=${user}&password=${psw}`)
-      .then(response => {
-        setData(response.data.statusMessage);
-        console.log(response.data.statusMessage);
-        alert('Usuario agregado exitosamente');
-      })
-      .catch(function (error) {
-        console.log(error);
+    const api = await fetch(`${url}add_user?username=${users.username}&password=${users.password}`,
+      {
+        method: 'POST',
+        mode: 'cors',
+        headers: headers
       });
+    const use = await api.json();
+    console.log(use);
+    setData(use)
+
+    // console.log(user, psw)
+
+    // await axios.post(`${url}add_user?username=${users.username}&password=${users.password}`)
+    //   .then(response => {
+    //     setData(data);
+    //     console.log(response.data.statusMessage);
+    //     alert('Usuario agregado exitosamente');
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
 
     // await axios.get(`${url}get_all_users`)
     //   .then(response => {
@@ -42,7 +54,8 @@ export default function SignUp() {
   }
 
   return (
-    <form>
+    // <form>
+    <section>
       <h3>Registrarse</h3>
       <div className="mb-3">
         <input
@@ -57,6 +70,7 @@ export default function SignUp() {
           type="password"
           className="form-control"
           placeholder="password"
+          id='password'
         />
       </div>
       <div className="d-grid">
@@ -64,7 +78,9 @@ export default function SignUp() {
           Registrarse
         </button>
       </div>
-    </form>
+    </section>
+
+    // </form>
   )
 }
 // }
