@@ -1,0 +1,5 @@
+¿Cómo funciona Dcoker?
+Docker proporciona una manera estandar de ejecutar código. Es un sistema operativo para contenedores,
+de manera similar a como una máquina virtual virtualiza (elimina la necesidad de administrar directamente)
+el hardware del servidor, los contenedores virtualiza el sistema operativo de un servidor. Se instala en cada
+servidor y se ejecuta mediante los comandos con la palabra reservada docker
