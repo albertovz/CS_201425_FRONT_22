@@ -5,8 +5,9 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { pink } from '@mui/material/colors';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import Alert from '@mui/material/Alert';
-
+import { Modal } from '@mui/material';
+import axios from "axios";
+import Update from './update.component';
 
 export default function User() {
 
@@ -17,23 +18,75 @@ export default function User() {
         showUsers();
     }, []);
 
+    const getUsers = async () => {
+        await axios.get(`${url}get_all_users`)
+            .then(response => {
+                setData(response.data);
+            })
+    }
+
     const showUsers = async () => {
 
-        var headers = { 'Access-Control-Allow-Origin': '*' }
-        const api = await fetch(`${url}get_all_users`,
+        const res = await fetch(`${url}get_all_users`);
+        res.json()
+            .then(res => setData(res))
+            .catch(err => console.log(err));
+
+        // var headers = { 'Access-Control-Allow-Origin': '*' }
+        // const api = await fetch(`${url}get_all_users`,
+        //     {
+        //         method: 'GET',
+        //         mode: 'cors',
+        //         headers: headers
+        //     });
+
+        // fetch(`${url}get_all_users`)
+        //     .then(res => res.json())
+        //     .then(json => setData(json))
+        //     .catch(err => console.log(err))
+        //     console.log(data)
+
+        // const use = await api.json();
+
+        // setData(use)
+        // // console.log(data.username);
+        // use.map(nombres => {
+        //     console.log(nombres.username)
+        // })
+    }
+
+    const deleteUser = async (id) => {
+        console.log(data)
+        const apiGet = await fetch(`${url}get_all_users`,
             {
-                method: 'GET',
-                mode: 'cors',
-                headers: headers
+                method: 'GET'
+            });
+        const useGet = await apiGet.json();
+        setData(useGet)
+        const api = await fetch(`${url}delete?id=${id}`,
+            {
+                method: 'DELETE',
             });
         const use = await api.json();
-        console.log(use);
-        setData(use)
+        alert('Usuario eliminado exitosamente');
+        setData(use);
+        console.log(data)
 
-        data.map(nombres => {
-            // console.log(nombres.username)
-        })
+
     }
+
+    const hanged = () => {
+        alert('Doble funcion')
+    }
+
+    const updateUser = async () => {
+        // await axios.put(`${url}update?id=${data.id}&username=${data.username}&&password=${data.password}`)
+        //     .then(response => {
+        //         showUsers();
+        //     })
+    }
+
+    const date = 'today';
 
     return (
 
@@ -65,13 +118,18 @@ export default function User() {
                                     <td>{usr.username}</td>
                                     {/* <td>{usr.password}</td> */}
                                     {/* <td>{usr.password}</td> */}
-                                    <td>{usr.phone_number}</td>
-                                    <td>
-                                        <Button color="primary" variant="outlined" endIcon={<CreateOutlinedIcon />}>
-                                            Editar
+                                    {/* <td>{usr.password}</td> */}
+                                    <td><h6>{date}</h6>
+                                        <Button color="primary" variant="outlined" endIcon={<CreateOutlinedIcon />} onClick={() => <Update date={date}  />}>
+                                            <Link className="nav-link" to={'/update-user'}>
+                                                Editar
+                                            </Link>
                                         </Button>
+                                        {/* <Update color="primary" variant="outlined" endIcon={<CreateOutlinedIcon />} onClick={() => typeModal (usr, 'Editars')}/> */}
                                         &nbsp;&nbsp;&nbsp;
-                                        <Button sx={{ color: pink[500] }} variant="outlined" startIcon={<DeleteIcon />}>
+                                        <Button type='submit' sx={{ color: pink[500] }} variant="outlined" startIcon={<DeleteIcon />} onClick={() =>
+                                            deleteUser(usr.id)
+                                        }>
                                             Borrar
                                         </Button>
                                         {/* <Edit className={styles.iconos} onClick={() => typeModal(usr, 'Editar')} />
@@ -101,10 +159,13 @@ export default function User() {
                     </tbody>
                 </table>
             </div>
-
         </section>
 
+
+
     )
+
+
 
 
 }

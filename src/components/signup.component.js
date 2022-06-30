@@ -56,6 +56,8 @@ export default function SignUp() {
     setData(use)
   }
 
+  
+
   return (
     // <form>
     <section>

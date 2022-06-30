@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import Login from './components/login.component'
 import SignUp from './components/signup.component'
 import User from './components/user.component'
+import Update from './components/update.component'
+import Home from './components/home.component'
 
 function App() {
   return (
@@ -24,6 +26,11 @@ function App() {
                     Login
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to={'/home'}>
+                    Home
+                  </Link>
+                </li>
                 {/* <li className="nav-item">
                   <Link className="nav-link" to={'/sign-up'}>
                     Sign up
@@ -40,6 +47,8 @@ function App() {
               <Route exact path="/Users" element={<User />} />
               <Route path="/sign-in" element={<Login />} />
               <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/update-user" element={<Update />} />
+              <Route path="/home" element={<Home />} />
             </Routes>
           </div>
         </div>
