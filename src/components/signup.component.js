@@ -1,8 +1,36 @@
 import React, { useState } from 'react'
-import axios from "axios";
-// import fetch from 'node-fetch';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import User from './user.component';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+let user = document.getElementById('username');
+let psw = document.getElementById('password');
 
 export default function SignUp() {
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+    // console.log(data.username)
+    SignUp();
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   // render() {
   const url = 'http://localhost:3001/api_v1/user/';
 
@@ -10,16 +38,13 @@ export default function SignUp() {
   const [data, setData] = useState([]);
 
   const SignUp = async () => {
+    user = document.getElementById('username').value;
+    psw = document.getElementById('password').value;
     var headers = { 'Access-Control-Allow-Origin': '*' }
-
-    let user = document.getElementById('username').value;
-    let psw = document.getElementById('password').value;
-    // alert(url)
     const users = {
       username: user,
       password: psw,
     };
-
     const api = await fetch(`${url}add_user?username=${users.username}&password=${users.password}`,
       {
         method: 'POST',
@@ -27,30 +52,8 @@ export default function SignUp() {
         headers: headers
       });
     const use = await api.json();
-    console.log(use);
+
     setData(use)
-
-    // console.log(user, psw)
-
-    // await axios.post(`${url}add_user?username=${users.username}&password=${users.password}`)
-    //   .then(response => {
-    //     setData(data);
-    //     console.log(response.data.statusMessage);
-    //     alert('Usuario agregado exitosamente');
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
-    // await axios.get(`${url}get_all_users`)
-    //   .then(response => {
-    //     setData(response.data.statusMessage);
-    //     console.log(response.data.statusMessage);
-    //     alert(data);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   })
   }
 
   return (
@@ -74,9 +77,23 @@ export default function SignUp() {
         />
       </div>
       <div className="d-grid">
-        <button type="submit" className="btn btn-primary" onClick={SignUp}>
+        <Stack spacing={2} sx={{ width: '100%' }}>
+
+          <Button variant="contained" color='success' onClick={handleClick} className='center'>
+            Registrarse
+          </Button>
+
+          <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+              Usuario agregado con éxito.
+            </Alert>
+          </Snackbar>
+        </Stack>
+
+
+        {/* <button type="submit" className="btn btn-primary" onClick={SignUp}>
           Registrarse
-        </button>
+        </button> */}
       </div>
     </section>
 

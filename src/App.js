@@ -4,6 +4,8 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import Login from './components/login.component'
 import SignUp from './components/signup.component'
+import User from './components/user.component'
+
 function App() {
   return (
     <Router>
@@ -13,15 +15,20 @@ function App() {
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
+                  <Link className="nav-link" to={'/Users'}>
+                    Usuarios
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link className="nav-link" to={'/sign-in'}>
                     Login
                   </Link>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link className="nav-link" to={'/sign-up'}>
                     Sign up
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>
@@ -30,6 +37,7 @@ function App() {
           <div className="auth-inner">
             <Routes>
               <Route exact path="/" element={<Login />} />
+              <Route exact path="/Users" element={<User />} />
               <Route path="/sign-in" element={<Login />} />
               <Route path="/sign-up" element={<SignUp />} />
             </Routes>

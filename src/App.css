@@ -2,6 +2,29 @@
   text-align: center;
 }
 
+.Table-center {
+  text-align: center;
+}
+
+.center {
+  text-align: center;
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 300px;
+  overflow: auto;
+  margin-top: 5%;
+}
+
+.table-wrapper-scroll-y {
+  display: block;
+}
+
+.Btn-margin {
+  margin-left: 80%;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -32,6 +55,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
